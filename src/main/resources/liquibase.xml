@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="20140831-1200" author="d.krivenko">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="users"/>
+            </not>
+        </preConditions>
+        <createTable  tableName="users">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="firstname" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lastname" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address_id" type="int">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="email" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="repeat_password" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="manager_id" type="int" />
+        </createTable>
+        <addForeignKeyConstraint constraintName="users_address_id_fk"
+                                 baseTableName="users" baseColumnNames="address_id"
+                                 referencedTableName="addresses" referencedColumnNames="id" />
+        <addForeignKeyConstraint constraintName="user_role_id_fk"
+                                 baseTableName="users" baseColumnNames="role_id"
+                                 referencedTableName="role" referencedColumnNames="id" />
+        <addForeignKeyConstraint constraintName="user_manager_id_fk"
+                                 baseTableName="users" baseColumnNames="manager_id"
+                                 referencedTableName="users" referencedColumnNames="id" />    
+    </changeSet>
+    
+    <changeSet id="20140831-1201" author="d.krivenko">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="addresses"/>
+            </not>
+        </preConditions>
+        <createTable  tableName="addresses">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="street" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="number" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="zip_code" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="city" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="20140831-1202" author="d.krivenko">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="roles"/>
+            </not>
+        </preConditions>
+        <createTable  tableName="roles">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="role" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
