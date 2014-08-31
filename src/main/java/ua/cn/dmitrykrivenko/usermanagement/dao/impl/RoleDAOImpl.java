@@ -3,6 +3,7 @@ package ua.cn.dmitrykrivenko.usermanagement.dao.impl;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import ua.cn.dmitrykrivenko.usermanagement.dao.RoleDAO;
 import ua.cn.dmitrykrivenko.usermanagement.domain.Role;
@@ -11,6 +12,7 @@ import ua.cn.dmitrykrivenko.usermanagement.domain.Role;
  * 
  * @author Dmitry Krivenko <dmitrykrivenko at gmail.com>
  */
+@Repository
 public class RoleDAOImpl implements RoleDAO {
 
 	@Autowired
